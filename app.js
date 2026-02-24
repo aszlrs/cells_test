@@ -81,35 +81,3 @@ function simular(operaciones, posicion) {
     return tiempoAlex;
 }
 
-
-// function simular(operaciones, posicion){
-
-//     let tiempo = 0;    
-//     let info_sim = document.getElementById("info_sim");
-//     info_sim.textContent = "Simulación en proceso...";
-//     let tiempoAlex = 0;
-
-//     // Simulamos
-//     while (clientes.size > 0) {       
-//         for (let [key, value] of clientes.entries()) {
-//             tiempo++;
-//             if (key === posicion) {
-//                 info_cola.innerHTML += `<br>(t=${tiempo}) Alex ingresó a ventanilla con ${value.opsRealizadas} operaciones realizadas.`;
-//                 tiempoAlex = tiempo;
-//             }
-//             else{
-//                 if (clientes.has(posicion)) {                    
-//                     info_cola.innerHTML += `<br>(t=${tiempo}) Alex está en la fila con ${clientes.get(posicion).opsRealizadas} operaciones realizadas.`;
-//                 }
-//             }
-            
-//             value.opsRestantes -= 1;
-//             value.opsRealizadas += 1;
-            
-//             if (value.opsRestantes < 1) {clientes.delete(key); }
-//         }
-//     }
-
-//     console.log("Tiempo Alex: " + tiempoAlex); 
-//     return tiempoAlex;
-// }
