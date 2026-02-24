@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Diagrama de Flujo - Test Cells</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.6.1/mermaid.min.js"></script>
+<style>
+  body {
+    font-family: 'Segoe UI', sans-serif;
+    background: #f0f4f8;
+    margin: 0;
+    padding: 20px;
+  }
+  h1 {
+    text-align: center;
+    color: #006f9f;
+    margin-bottom: 4px;
+  }
+  p.sub {
+    text-align: center;
+    color: #555;
+    margin-bottom: 24px;
+    font-size: 12px;
+  }
+  .section {
+    background: white;
+    padding: 20px 20px;
+    margin-bottom: 50px;
+  }
+  .section h2 {
+    color: #1a3c6e;
+    border-left: 4px solid #4a90d9;
+    padding-left: 12px;
+    margin-top: 0;
+    font-size: 16px;
+  }
+  .mermaid {
+    display: flex;
+    justify-content: center;
+  }
+
+</style>
+</head>
+<body>
+<div class="section">
+  <h2>Flujo general</h2>
+  <div class="mermaid">
+flowchart TD
+    A([INICIO]) --> B[Solicitamos cantidad de clientes\ncant_clientes]
+    B --> C{cant_clientes > 0?}
+    C -- No --> B
+    C -- Sí --> D[Llamamos funcion\n askOperationsPerClient]
+
+    D --> E[i = 0]
+    E --> F{Evaluamos todos los clientes?\ni < cant_clientes_value?}
+    F -- No --> G([Datos listos\nMapa clientes completo])
+    F -- Sí --> H[Solicitamos operaciones por cliente\nPrompt: operaciones\npara cliente i]
+    H --> I{operaciones > 0\nY ≤ 10?}
+    I -- Sí --> J["clientes.set(i,\n{opsRestantes, opsRealizadas:0})"]
+    I -- No --> K["clientes.set(i,\n{opsRestantes:0, opsRealizadas:0})\nMensaje: no válida"]
+    J --> L[i++]
+    K --> L
+    L --> F
+
+    style A fill:#1a3c6e,color:#fff
+    style G fill:#2e7d32,color:#fff
+  </div>
+</div>
+
+<div class="section">
+  <h2>Función Principal</h2>
+  <div class="mermaid">
+flowchart TD
+    A([Inicio]) --> B["Construir cola \nrecorriendo Map de clientes\ncola = [ {id, opsRestantes, opsRealizadas:0}, ... ]"]
+    B --> C[Inicializar\ntiempo = 0\ntiempoAlex = 0]
+
+    C --> D{cola.length > 0?}
+    D -- No --> E["Retornar tiempoAlex"]
+    E --> F([FIN])
+
+    D -- Sí --> G["Evaluamos cliente: \ncliente = cola.shift()\ntiempo++"]
+
+    G --> H{El cliente evaluado es Alex?\n cliente.id === posicion\nes Alex?}
+
+    H -- Sí --> I["tiempoAlex = tiempo\nLog: Alex en VENTANILLA\ncon opsRealizadas actuales"]
+
+    H -- No --> J{"¿Alex sigue en cola?\ncola.some(el => el.id === posicion)"}
+    J -- Sí --> K["Ubicamos a Alex\nalex = cola.find(el => el.id === posicion)\nLog: Alex en FILA\ncon alex.opsRealizadas actuales"]
+    J -- No --> L[Alex ya terminó\nno se registra]
+
+    I --> M[Actualizamos ops de cliente\ncliente.opsRestantes--\ncliente.opsRealizadas++]
+    K --> M
+    L --> M
+
+    M --> N{El cliente todavía tiene ops?\ncliente.opsRestantes > 0?}
+    N -- Sí --> O["cola.push(cliente)\nVuelve al final de la cola"]
+    N -- No --> P[Cliente eliminado\nno se reencola]
+    O --> D
+    P --> D
+
+    style A fill:#1a3c6e,color:#fff
+    style F fill:#2e7d32,color:#fff
+    style I fill:#388e3c,color:#fff
+    style K fill:#1565c0,color:#fff
+    style E fill:#2e7d32,color:#fff
+  </div>
+</div>
+
+
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test BBVA Cells</title>
+</head>
+<body>
+    <h1>Test BBVA Cells</h1>
+    <div>
+        <label for="cant_clientes">Cantidad de clientes:   </label>
+        <input type="number" name="cant_clientes" id="cant_clientes" min="1" max="20">
+        <input type="button" value="OK" id="OK">
+        <span id="clientes_label"></span>
+    </div>
+    
+    <div>
+        <ul id="info_clientes"></ul>
+        <b><span id="informacion"></span></b>
+    </div>
+
+    <div style="margin-top: 50px;">
+        <input type="button" value="Iniciar Simulación" id="simular">
+    </div>
+    <div>
+        <span id="info_sim" style="margin-top: 30px;"></span>
+        <ul id="info_cola"></ul>
+    </div>
+</body>
+<script src="app.js?1"></script>
+</html>
